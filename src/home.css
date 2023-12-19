@@ -1,0 +1,14 @@
+.row-one, .row-two{
+    padding-top: 2%;
+    padding-bottom: 2%; 
+}
+.home-tiles{
+    border: 2px #000000 solid;
+    border-radius: 20px;
+    padding: 5%;
+}
+
+.btn-section-one, .btn-section-two{
+    width: 50%;
+    display: inline-block;
+}
