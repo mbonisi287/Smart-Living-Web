@@ -22,6 +22,14 @@ console.log("mbonisi" + posts);
 
 if (!post) return null;
 
+const clubHouse = () => {
+  window.location.href = "http://localhost:3000/club-house";
+}
+
+const newTenantApp = () => {
+  window.location.href = "http://localhost:3000/newTenant";
+}
+
 
 return (
 
@@ -41,7 +49,7 @@ return (
         </thead>
         <tbody>
             {
-              setPosts.data.map(post => ( 
+              /*setPosts.data.map(post => ( 
                 <tr key={post.userId}> 
                   <td> {post.userId} </td>
                   <td> {post.userId} </td>
@@ -51,7 +59,7 @@ return (
                   <td> <button class="btn btn-primary"> Mark As Read </button></td>
                 </tr>
 
-              ))
+              ))*/
             }
           
 
@@ -123,7 +131,8 @@ return (
                 <p> Book the club house for your events </p>
                 <div class="home-buttons">
                   <div class="btn-section-on">
-                    <button class="btn btn-large btn-primary"> Book Club-House </button>                
+                  <button onClick={clubHouse} class="btn btn-large btn-primary"> Book Club-House</button>   
+                                  
                   </div>                 
                 </div>
               </div>  
@@ -162,6 +171,18 @@ return (
                 </div>
               </div>  
       </div>   
+
+      <div class="col-lg-4">                  
+            <div class="home-tiles" id="tenant-application">
+                <h2> New Tenant Application  </h2>
+                <p> Welcome to the Estate/Complex </p>
+                <div class="home-buttons">
+                  <div class="btn-section-on">
+                    <button onClick={newTenantApp} class="btn btn-large btn-primary"> Start Application </button>        
+                  </div>                 
+                </div>
+              </div>  
+      </div> 
 
 
     </div>

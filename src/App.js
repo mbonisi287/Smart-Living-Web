@@ -17,6 +17,8 @@ import Settings from "./pages/settings";
 import Visitors from "./pages/visitors";
 import Maintenance from "./pages/maintenance";
 import Rentals from "./pages/rentals";
+import NewTenant from './pages/newTenant';
+import ClubHouse from './pages/club-house';
 
 function App() {
   return (
@@ -31,7 +33,9 @@ function App() {
           <Route path="/rentals" element={<Rentals />}/>
           <Route path="/visitors" element={<Visitors />}/>
           <Route path="/maintenance" element={<Maintenance />}/>
-          <Route path="/settings" element={<Settings />}/>      
+          <Route path="/settings" element={<Settings />}/>  
+          <Route path="/newTenant" element={<NewTenant />}/>   
+          <Route path="/club-house" element={<ClubHouse />}/>  
         </Routes>
       </main> 
       </div>
