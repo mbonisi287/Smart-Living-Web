@@ -15,7 +15,9 @@ export default function NewTenant() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+  }
 
   /* Function to handle the consent agreement */
 
@@ -35,18 +37,6 @@ export default function NewTenant() {
       event.preventDefault();
       event.stopPropagation();
     }
-
-    /*const user = {
-      name: this.state.name
-    };
-
-    axios.post('https://jsonplaceholder.typicode.com/users', {user})
-    .then(res=> {
-      console.log(res);
-      console.log("Code sent");
-      console.log(res.data);
-    })*/
-
     setValidated(true);
   }
 

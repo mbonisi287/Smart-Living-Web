@@ -1,0 +1,16 @@
+nav{
+    background-color: #b7f4b7 !important;
+    /*position: sticky;*/ 
+    position: -webkit-sticky;
+    top: 0;
+    border-bottom: 1px solid #000000;
+}
+
+.nav-link{
+    color: #000 !important;
+    font-weight: bold !important;
+}
+
+.smHeader{
+    z-index: auto;
+}

@@ -1,0 +1,11 @@
+.leaseHeading{
+    background-color: aliceblue;
+    margin: 2% 0%;
+    border-radius: 25px;
+    padding: 1%;
+    border: 2px solid #000000;
+}
+
+.leaseTable{
+    padding: 5%;
+}

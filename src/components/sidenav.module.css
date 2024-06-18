@@ -1,10 +1,21 @@
 .sidenav {
-    width: 250px;
+    width: 260px;
     transition: width 0.3s ease-in-out;
-    height: 1000px;
+    
     background-color: rgb(10,25,41);
     padding-top: 28px;
     float: left;
+    
+    /* this will make it go ontop of other content, 
+    the index is the "layer" its on so make it as low as you can. */
+    z-index: 99;
+
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-image: url('../Images/11604319_4727475.jpg');
+    background-position: center;
 }
  
 .sidenavClosed {
@@ -18,7 +29,7 @@
     align-items: center;
     padding: 10px 20px;
     cursor: pointer;
-    color: #B2BAC2;
+    color: #000000;
     text-decoration: none;
 }
  
@@ -33,6 +44,12 @@
  
 .sideitem:hover {
     background-color: #244f7d1c;
+    font-size: large;
+    font-weight:bold;
+    border-radius: 25px;
+    text-decoration: 2px underline;
+    padding-right: 5px;
+    transition: width 0.3s ease-in-out;
 
 }
  
@@ -40,9 +57,10 @@
     align-self: center;
     align-self: flex-start; 
     justify-self: flex-end;
-    color: #B2BAC2;
+    color: #000000;
     background-color: transparent;
     border: none;
+    float: right;
     cursor: pointer;
     padding-left: 20px;
 }

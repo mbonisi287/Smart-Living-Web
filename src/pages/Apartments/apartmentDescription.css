@@ -1,0 +1,43 @@
+.apartmentDiv{
+    background-color:  #ffffff;
+    margin: 5% auto;
+    border-radius: 25px;
+    padding: 2%;
+
+    border: 1px solid #000000;
+    box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+
+}
+
+.aptSum{
+    border-bottom: 2px solid #000000;
+    margin: 2% 0% 5% 0%;
+}
+
+.totalNo{
+    font-size: 3em;
+    font-weight: bold;
+}
+
+
+.sumCols1, .sumCols2, .sumCols3, .sumCols4{
+    border-radius: 25px;
+    border: 2px solid #000000;
+    padding: 2%;
+}
+
+.sumCols1{
+    background-color: cadetblue;
+}
+
+.sumCols2{
+    background-color: darkseagreen;
+}
+
+.sumCols3{
+    background-color: tan;
+}
+
+.sumCols4{
+    background-color: lightsteelblue;
+}

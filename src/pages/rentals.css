@@ -1,0 +1,75 @@
+.payRentDetails{
+
+}
+
+.payNow{
+    background-color: #b7f4b7;
+    width: 70%;
+    margin: 5% auto;
+    padding: 2%;
+    border-radius: 25px;
+    border: 1px solid #000000;
+    box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    align-content: left !important;
+
+}
+
+.personalRentDetails{
+    text-align: left;
+    
+}
+
+.paymentOptions{
+    text-align: left;
+}
+
+.paymentImages{
+    margin: 1%;
+}
+
+
+.rentTable{
+    margin: 0 20px;
+}
+.rentText{
+    font-size: 1.5em;
+}
+
+
+.rentId, .rentIdHeading{
+    display: none;
+}
+.rentPrice{
+    font-size: 2.4em;
+    font-weight: 600;
+    display: block;
+}
+
+.rentSalutation{
+    font-weight: 500;
+
+}   
+
+.rentUserName{
+    display: block;
+    font-weight:700;
+}
+
+.redMessage{
+    border-top: 2px solid #000000;
+    margin-top: 5%;
+    padding: 2% 0%;
+    font-weight: bold;
+}
+
+/* Previous Rental Statement */
+.previousRentals{
+    background-color: #b7f4b7;
+    border-radius: 20px;
+    padding: 2% 0%;
+    margin-bottom: 10%;
+}
+
+.previousRnHeading{
+    margin: 2% 0%; 
+}

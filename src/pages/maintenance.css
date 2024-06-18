@@ -1,0 +1,27 @@
+.singleIssue{
+    margin-bottom: 1%;
+    
+
+
+}
+
+.singleIssueForm{
+    background-color: grey;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+
+}
+
+.singleIssueButton{
+    margin-bottom: 20px;
+}
+
+.back-button{ display: inline; width: 10%; }
+
+.maintenance-heading{ display: inline; width: 80%; }
+
+.maintenance-heading-row{
+    padding: 2% 0% 2% 0%;
+}

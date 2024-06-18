@@ -1,0 +1,147 @@
+.adminContainer{
+    width: 1600px !important;
+}
+
+.home-tiles{
+    background-color: #b7f4b7;
+    border-radius: 25px;
+    border: 1px #000000 solid;
+    padding: 5%;
+    /*box-shadow: 10px 5px 5px blue;*/
+    box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+.home-tiles:hover {
+    transform: translateY(5px);
+    box-shadow: inset 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
+}
+
+.row-one, .row-two{
+    padding-top: 2%;
+    padding-bottom: 2%; 
+}
+
+
+.btn-section-one, .btn-section-two{
+    width: 50%;
+    display: inline-block;
+}
+
+.row-four{
+    padding-top: 2%;
+    padding-bottom: 100px;
+}
+
+/* New Dashbaord Styling */
+.adminDashboard{
+    background-color: aliceblue;
+    border-radius: 25px;
+    margin: 2% 0% 5% 0%;
+    padding: 2%;
+}
+
+.welcomeRow{
+    text-align: left;
+    margin: 1% 0%;
+}
+
+.snapShotRow{
+    border-top: 2px solid #000000;
+}
+.snapShot{
+    border: 2px solid #000000;
+    border-radius: 20px;
+    margin: 1px;
+    text-align: left;
+    padding:  0% 5% 2% 5%;
+}
+
+.snapShotHeading{
+    margin: 2% 0% 0% 0%;
+}
+
+.snapShotSpan{
+    font-weight:bold;
+    font-size: 2em;
+    margin: 2% 0%;
+
+}
+.snapShotImg{
+    width: 20%;
+    height: 50%;
+    float: right;
+}
+
+.snapShotBtn{
+    display: block !important;
+    border-radius: 15px;
+    margin: 3% 0% 0% 0%;
+}
+
+.sideCol{
+    border-left: 2px solid #000000;
+    padding-left: 5%;
+}
+
+.jobHeadingTop{
+    text-align: right !important;
+}
+
+.jobRow{
+    text-align: left !important;
+    padding: 3% 0%;
+    border-bottom: 2px solid black;
+}
+/* Maintenance Jobs */
+
+.jobTitle{
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.jobUnit{
+    float: right;
+}
+.jobStatus{
+    float: right;
+}
+
+.jobStatus1{
+    border: 2px solid green;
+    border-radius: 20px;
+    padding: 0% 3%;
+    float: left;
+}
+.jobDate{
+    float: right;
+}
+
+
+
+.jobBtn{
+    width: 25%;
+    float: right;
+    border-radius: 20px;
+}
+
+.dateIconImg{
+    width: 5%;
+}
+
+.statsHeading{
+    margin: 5% 0% 3% 0%;
+
+}
+/*Charts*/
+#chart, #chartsPie {
+    max-width: 800px;
+    margin: 35px auto;
+  }
+
+  #chartsLease{
+    max-width: 500px;
+    padding: 5%;
+    margin: 20px auto;
+  }
+  

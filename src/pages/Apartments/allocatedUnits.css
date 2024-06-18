@@ -1,0 +1,11 @@
+.allocatedDiv{
+    /*background-color:  #b7f4b7;*/
+    background-color:  #ffffff;
+    margin: 5% auto;
+    border-radius: 25px;
+    padding: 2%;
+
+    border: 1px solid #000000;
+    box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    
+}

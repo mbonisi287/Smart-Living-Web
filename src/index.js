@@ -4,9 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter} from 'react-router-dom';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+/*const cors = require('cors');
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true, 
+  optionSuccessStatus: 200
+}
+
+App.use(cors(corsOptions));*/
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>

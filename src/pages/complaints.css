@@ -1,0 +1,20 @@
+.complaintForm{
+    background-color: #b7f4b7;
+    padding: 2%;
+    border-radius: 25px;
+    border: 1px solid #000000;
+    text-align: left;
+    border: 1px solid #000000;
+    box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.complaintNotes{
+    margin: 10px 0;
+    background-color: #b7f4b7;
+    padding: 2%;
+    border-radius: 25px;
+    border: 1px solid #000000;
+    text-align: left;
+    border: 1px solid #000000;
+    box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}

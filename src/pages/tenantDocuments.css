@@ -1,0 +1,23 @@
+.currentLeaseAgreement{
+    background-color: #b7f4b7;
+    border-radius: 25px;
+    padding: 2%;
+}
+
+.previousLeaseAgreements{
+    background-color: #b7f4b7;
+    border-radius: 25px;
+    padding: 2%;
+}
+
+.startDate, .endDate {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 2% 0% 2% 0%;
+}
+.renewalNote{
+    display: block;
+    margin: 2% 0% 2% 0%;
+}
