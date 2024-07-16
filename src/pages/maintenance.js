@@ -4,10 +4,15 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
+import { ModalHeader } from 'react-bootstrap';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Row from 'react-bootstrap/Row';
+
 import '../pages/maintenance.css';
+import { on } from 'events';
 
 function Maintenance(){
-    const home = () => {
+    /*const home = () => {
         window.location.href = "http://locahost:3000/";
         console.log("Back to Home");
     }
@@ -26,121 +31,193 @@ function Maintenance(){
         } else { 
           setTimeout(checkLoaded, 10); 
         } 
-      }
+      }*/
 
-    const singleIssues = () => {    }
+    //const singleIssues = () => {    }
+    //const multipleIssues = () => {    }
+    //var buttonSingleIssue = visibleSingleIssue ? "Report Single Issue - Hide Form" : "Report Single Issue - Show Form";
+    //var buttonMultipleIssue = visibleMultipleIssue ? "Report Multiple Issues - Hide Form" : "Report Multiple Issues - Show Form" ;
 
-    const multipleIssues = () => {    }
+    const [ mainJobs, setMainJobs ] = useState([]);
+
+    const [ prevJobs, setPrevJobs ] = useState([]);
+
+    const [ modalData, setModalData] = useState("");
+    const urlMainJob = "https://localhost:44311/api/controller/AllJobs";
+
+    useEffect(() => {
+        axios.get(urlMainJob)
+            .then(response => {
+
+                /* Filter the difference between the previous jobs to the main jobs
+                * Array 1 - Current Jobs
+                * Array 2 - Previous Jobs
+                */
+                const onGoingJobs = response.data;
+                //onGoingJobs.filter( a => a.adminApproval === 'true');
+                
+                setMainJobs(onGoingJobs.filter(a => a.adminApproval === false));
+                console.log("Filtered Array" + JSON.stringify(onGoingJobs)); 
+                //setMainJobs(onGoingJobs);
+
+
+                const prevJobs = response.data;
+                setPrevJobs(prevJobs.filter( p => p.adminApproval === true));
+
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    },[]);
+
+    const [ show, setShow ] = useState(false);
+    const handleClose = ()  => setShow(false);
+    //const handleShow = () => {     setShow(true);    }
+
+    const oneJob ="";
+
+    function handleShow(oneJob){
+       
+        let mainJob = new Array(oneJob);
+        console.log("One Job is:" + JSON.stringify(oneJob.jobId))
+        setModalData(oneJob);
+        //unitNo: unitNo;
+        setShow(true);
+
+    }
 
     
 
-    var buttonSingleIssue = visibleSingleIssue ? "Report Single Issue - Hide Form" : "Report Single Issue - Show Form";
-    var buttonMultipleIssue = visibleMultipleIssue ? "Report Multiple Issues - Hide Form" : "Report Multiple Issues - Show Form" ;
-
     return(
-        <div class="container">
-            <div className="row maintenance-heading-row">
-                <button onClick={home} className="btn btn-lg btn-primary back-button"> Back </button>
-                <h3 className="maintenance-heading"> Log a Maintenance Call </h3>
-            </div>
-            <div className="row singleIssue">
-                <button type="button" className="btn btn-primary btn-lg" onClick={toggleSingleIssues}> {buttonSingleIssue} </button>
-                {/* Single Issue */}
-                <div className="singleIssueForm">
-                    { visibleSingleIssue && 
-                            <Form>
-                                <Form.Group className="mb-3" controlId="formBasicName">
-                                    <Form.Label>Name</Form.Label>
-                                        {/*<Form.Control onChange={this.handleChange} type="text" placeholder="Enter your name" />*/}
-                                    <Form.Control type="text" placeholder="Enter your name" />
-                                </Form.Group>
+        <div className="container-fluid mainJobsContainer">
+            <h3> Maintenance Jobs</h3>
+            {/* Maintanence Container*/}
+            <div className="row ">
+                {/* Current OnGoing Jobs */}
+                <div className="col-6 mainDivCurrent"> 
+                    <h3> Current Ongoing Maintenance Jobs</h3>
+                    {
+                        
+                        mainJobs.map(item =>                             
+                            <div key={item.jobId}className="row prevJobRow">
+                                <div className="col-3"> <span className='spanPrevJob'> Unit No: </span> {item.unitNo}</div>
+                                <div className="col-9"> 
+                                    <span className='bigSpanPrevJob'> 
+                                        <span className='spanPrevJob'>Job Item: </span> {item.jobItem} 
+                                    </span> 
+                                    <span className='bigSpanPrevJob'> 
+                                        <span className='spanPrevJob'>Job Description: </span> {item.jobDescription} 
+                                    </span> 
+                                    <span className='bigSpanPrevJob'> 
+                                        <span className='spanPrevJob'>Job Recorded Date:  </span> {item.jobDate} 
+                                    </span> 
+                                    <span className='bigSpanPrevJob'> 
+                                        <span className='spanPrevJob'>Allocated To :  </span>{ item.allocatedTo}
+                                    </span>
+                                  
+                                    <Button type="button" variant="primary" onClick={() => handleShow(item)}>  View Job </Button>
+                                    <Modal
+                                        show={show}
+                                        handle={handleClose}
+                                        backdrop="static"
+                                        size="lg"
+                                        aria-labelledby="contained-modal-title-vcenter"
+                                        centered
+                                        keyboard={false}>
 
-                                <Form.Group className="mb-3" controlId="formBasicLastName">
-                                    <Form.Label>Last Name</Form.Label>
-                                        {/*<Form.Control onChange={this.handleChange} type="text" placeholder="Enter your name" />*/}
-                                    <Form.Control type="text" placeholder="Enter your name" />
-                                </Form.Group>
+                                        <ModalHeader>
+                                            <Button variant="secondary" onClick={handleClose}> Close </Button>
+                                            <Modal.Title> Job For Unit No: {modalData.unitNo}
+                                            
+                                            </Modal.Title>
+                                        </ModalHeader>
+                                        <Modal.Body>
+                                            <span className="modalSpan"> Job Date: {modalData.jobDate} </span>
+                                            <span className="modalSpan"> Job Item: {modalData.jobItem} </span>
+                                            <span className="modalSpan"> Job Description: {modalData.jobDescription} </span>
+                                            <span className="modalSpan"> Allocated Time: {modalData.allocationTime} </span>
+                                            <span className="modalSpan"> Allocated To: {modalData.allocatedTo} </span>
+                                            <span className="modalSpan"> Allocated By: {modalData.allocatedBy} </span>
+                                            <span className="modalSpan"> Completion Time: {modalData.completionTime} </span>
+                                            <span className="modalSpan"> Admin Approval: {modalData.adminApproval} </span>
+                                            <span className="modalSpan"> Tenant Approval: {modalData.tenantApproval} </span>
+                                            <span className="modalSpan"> Tenant Approval Time: {modalData.tenantApprovalTime} </span>
 
-                                <Form.Label>Bank Name</Form.Label>
-                                <Form.Select aria-label="Default select example">
-                                    
-                                    <option>Select Bank </option>
-                                    <option value="1"> Capitec </option>
-                                    <option value="2"> Absa </option>
-                                    <option value="3"> African  Bank </option>
-                                    <option value="3"> FNB </option>
-                                    <option value="3"> Discovery Bank </option>
-                                    <option value="3"> Nedbank </option>
-                                    <option value="3"> Stanbic  </option>
-                                    <option value="3"> Tyme Bank </option>
-                                    <option value="3"> FirstRand Bank </option>
-                                    <option value="3"> Grindrod Bank </option>
-                                    <option value="3"> HBZ Bank </option>
-                                    <option value="3"> Investec Bank </option>
-                                    <option value="3"> Mercantile Bank </option>
-                                    <option value="3"> Rand Merchant Bank </option>
-                                    <option value="3"> RMB Private Bank  </option>
-                                    <option value="3"> South African Bank of Athens Limited </option>
-                                    <option value="3"> Sasfin Bank Ltd </option>
-                                    <option value="3"> Standard Bank of SA </option>
-                                    <option value="3"> Wesbank </option>
-                                    <option value="3">Standard Bank </option>
-                                </Form.Select>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="secondary" onClick={handleClose}> Close </Button>
+                                        </Modal.Footer>
 
-                                <Form.Group className="mb-3" controlId="formBasicName">
-                                    <Form.Label> Bank Account Number </Form.Label>
-                                        {/*<Form.Control onChange={this.handleChange} type="text" placeholder="Enter your name" />*/}
-                                    <Form.Control type="text" placeholder="Enter your name" />
-                                </Form.Group>
-                                
-                                <Button variant="primary" type="submit">  Pay Deposit </Button>
-                            </Form> 
+                                    </Modal>
+                                </div>
+                     
+                            </div>
+                        )
                     }
-                    </div>               
+                </div>
+
+                {/* Previous Maintenance Jobs*/}
+                <div className="col-6 mainDivPrev">
+                    <h3> Previous Maintenance Jobs </h3>
+                    {
+                        prevJobs.map(item => 
+                            <div key={item.jobId}className="row prevJobRow">
+                                <div className="col-3"> <span className='spanPrevJob'> Unit No: </span> {item.unitNo}</div>
+                                <div className="col-9"> 
+                                    <span className='bigSpanPrevJob'> <span className='spanPrevJob'>Job Item: </span> {item.jobItem} </span> 
+                                    <span className='bigSpanPrevJob'> <span className='spanPrevJob'>Job Description: </span> {item.jobDescription} </span> 
+                                    <span className='bigSpanPrevJob'> <span className='spanPrevJob'>Job Recorded Date:  </span> {item.jobDate} </span> 
+                                    <span className='bigSpanPrevJob'> <span className='spanPrevJob'>Allocated To :  </span>{item.allocatedTo}</span>
+                                    <Button type="button" variant="primary" onClick={() => handleShow(item)}>  View Job </Button>
+                                    <Modal
+                                        show={show}
+                                        handle={handleClose}
+                                        backdrop="static"
+                                        size="lg"
+                                        aria-labelledby="contained-modal-title-vcenter"
+                                        centered
+                                        keyboard={false}>
+
+                                        <ModalHeader>
+                                            <Button variant="secondary" onClick={handleClose}> Close </Button>
+                                            <Modal.Title> Job For Unit No: {modalData.unitNo}
+                                            
+                                            </Modal.Title>
+                                        </ModalHeader>
+                                        <Modal.Body>
+                                            <span className="modalSpan"> Job Date: {modalData.jobDate} </span>
+                                            <span className="modalSpan"> Job Item: {modalData.jobItem} </span>
+                                            <span className="modalSpan"> Job Description: {modalData.jobDescription} </span>
+                                            <span className="modalSpan"> Allocated Time: {modalData.allocationTime} </span>
+                                            <span className="modalSpan"> Allocated To: {modalData.allocatedTo} </span>
+                                            <span className="modalSpan"> Allocated By: {modalData.allocatedBy} </span>
+                                            <span className="modalSpan"> Completion Time: {modalData.completionTime} </span>
+                                            <span className="modalSpan"> Admin Approval: {modalData.adminApproval} </span>
+                                            <span className="modalSpan"> Tenant Approval: {modalData.tenantApproval} </span>
+                                            <span className="modalSpan"> Tenant Approval Time: {modalData.tenantApprovalTime} </span>
+
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="secondary" onClick={handleClose}> Close </Button>
+                                        </Modal.Footer>
+
+                                    </Modal>
+                                </div>
+                     
+                            </div>
+                        )
+                    }
+                    <div className=''>
+      
+                    </div>
+                </div>
+
             </div>
 
-              {/* Mutliple Issues */}
-              <div className="row multiple issues">
-                    <button className="btn btn-primary btn-lg" onClick={toggleMultipleIssues}> {buttonMultipleIssue} </button>
-                    { visibleMultipleIssue &&
-                        <h4> Please fill in the form to Report Mutliple Maintenance Issues </h4>
-                    }
-              </div>
-
-
-
-
-            {/* Maintenance History */}
-            <div class="row"> 
-                <h3> Previous Maintenance History </h3>
-                <table class="table table-striped">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th> Date </th>
-                        <th> Description Of Fault </th>
-                        <th> Log Status </th>
-                    </tr>
             
-                    </thead>
-                    <tbody>
-                        {
-                        /*setPosts.data.map(post => ( 
-                            <tr key={post.userId}> 
-                            <td> {post.userId} </td>
-                            <td> {post.userId} </td>
-                            <td> {post.title} </td>
-                            <td> {post.body }</td>
-                            <td> <button class="btn btn-primary"> View Message </button></td>
-                            <td> <button class="btn btn-primary"> Mark As Read </button></td>
-                            </tr>
-
-                        ))*/
-                        }
-                    
-
-                    </tbody>
-                </table>
-            </div>
+   
+     
 
         </div>
     )

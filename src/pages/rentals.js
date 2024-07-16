@@ -159,6 +159,7 @@ function Rentals() {
                             </thead>
                             <tbody>
                             {
+                                // create two tables depending on where the user is admin or a normal tenant
                                 allRentals.map((rent, index) => {
                                     return <tr key={index}>
                                         <td className="rentId">{rent.rentId}</td>

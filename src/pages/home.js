@@ -17,24 +17,33 @@ import ApexCharts from 'apexcharts';
 //var CanvasJS = CanvasJSReact.CanvasJS;
 //var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-function Home() {
+export default function Home() {
   /* declare the domain name */
 
-  const userEmail = localStorage.getItem('key'); 
+    const domainName = "http:localhost:3000";
+    const clubHouse = () => {  window.location.href = "clubHouse"; }
 
-  var countWebToken = 0;
+    const newTenantApp = () => {  window.location.href =  "newTenant";  }
 
-  if((userEmail == null) && (countWebToken == 0 )){
-     console.log("Website token is" + userEmail);
-     window.location.href = "/useraccount/login";
-  }else{
-    console.log("User Email is now - >" + userEmail );
-    //hit api to check profile
+    const maintenance = () => { window.location.href = "maintenance"; }
+
+    const tenantDocuments = () => { window.location.href = "tenantDocuments";  }
+
+    const payRent = () => { window.location.href = "payRent";  }
+
+    const complaints = () => { window.location.href = "complaints"  }
+
+    const meterUsage = () => { window.location.href = "meterUsage";  }
+
+    const creditApplications = () => { window.location.href = "CreditApplications/creditApplications"; }
+
+    //Chart Functions
+    document.addEventListener("DOMContentLoaded", function(arg) {
+      // do something cool
+      RentalCollectionCharts();
+    });
 
 
-
-    countWebToken =+1;
-  }
 
   const [profile, setProfile ] = useState([true]);
 
@@ -84,28 +93,35 @@ useEffect(() => {
 
 if (!post) return null;
 
-const domainName = "http:localhost:3000";
-const clubHouse = () => {  window.location.href = "clubHouse"; }
+// Active Maintenance Jobs Box   
+        /* Filter the difference between the previous jobs to the main jobs
+        * Array 1 - Current Jobs
+        * Array 2 - Previous Jobs
+       */
+      
+const urlMainJob = "https://localhost:44311/api/controller/AllJobs";
+/*const [ mainJobs, setMainJobs ] = useState ([]);
 
-const newTenantApp = () => {  window.location.href =  "newTenant";  }
+useEffect(() => {
+  axios.get('https://localhost:44311/api/controller/AllJobs')
+      .then(response => {
+     
+      //const onGoingJobs = response.data;
+       //onGoingJobs.filter( a => a.adminApproval === 'true');
+                        
+        //setMainJobs(onGoingJobs.filter(a => a.adminApproval === false));
+        setMainJobs(response.data);
+        console.log(response.data);
+      })
+      .catch( error => {
+        console.error(error);
+      })
+},[]); 
 
-const maintenance = () => { window.location.href = "maintenance"; }
+if(!mainJobs) return null;*/
 
-const tenantDocuments = () => { window.location.href = "tenantDocuments";  }
 
-const payRent = () => { window.location.href = "payRent";  }
 
-const complaints = () => { window.location.href = "complaints"  }
-
-const meterUsage = () => { window.location.href = "meterUsage";  }
-
-const creditApplications = () => { window.location.href = "CreditApplications/creditApplications"; }
-
-//Chart Functions
-document.addEventListener("DOMContentLoaded", function(arg) {
-  // do something cool
-  RentalCollectionCharts();
-});
 
 
 function RentalCollectionCharts(){
@@ -383,12 +399,23 @@ function VisitorAnalytics(){
   chart.render();
   
 }
-// Charts 
-
-//chart.destroy();
+// Charts - chart.destroy();
 
     
-  
+
+const userEmail = localStorage.getItem('key'); 
+
+var countWebToken = 0;
+
+if((userEmail == null) && (countWebToken == 0 )){
+   console.log("Website token is" + userEmail);
+   window.location.href = "/useraccount/login";
+}else{
+  console.log("User Email is now - >" + userEmail );
+  //hit api to check profile
+  countWebToken =+1;
+}
+
 
 return (
 
@@ -521,29 +548,26 @@ return (
         <div className="col-4 sideCol">
           <div className="maintenanceJobs">
              <h5 className="jobHeadingTop"> Active Maintenance Jobs </h5>
-             <div className="row jobRow">
-                <span>
-                  <span className="jobTitle"> Broken Sink </span>
-                  <span className="jobUnit"> Unit No : 605 </span>
-                </span>
+             {/*
+                mainJobs.map(item =>
+                  <div className="row jobRow">
+                    <span>
+                      <span className="jobTitle"> {item.jobItem}</span>
+                      <span className="jobUnit"> Unit No : {item.unitNo} </span>
+                    </span>
+                    <span>
+                      <span className="jobStatus"> Status : <span className=""> Active </span> </span>
+                      <span className="jobdate"><img className="dateIconImg" src={dateIcon} alt="DateIcon"/> : 15/03/2024 </span>
+                    </span>
+                    <button type="button" onClick={clubHouse} className="btn btn-sm btn-success float-right d-blacks jobBtn"> View Job </button>
+            
+                  </div>
 
-                <span>
-                  <span className="jobStatus"> Status : <span className=""> Active </span> </span>
-                  <span className="jobdate"><img className="dateIconImg" src={dateIcon} alt="DateIcon"/> : 15/03/2024 </span>
-                </span>
-                
+                )
 
-                
-                <button type="button" onClick={clubHouse} className="btn btn-sm btn-success float-right d-blacks jobBtn"> View Job </button>
-             </div>
+              */}
 
-             <div className="row jobRow">
-                <span className="jobTitle"> Broken Sink </span>
-                <span className="jobUnit"> Unit No : 605 </span>
-                <span> Status : <span className="jobStatus"> Active </span></span>
-                <span><img className="dateIconImg" src={dateIcon} alt="DateIcon"/> : 15/03/2024 </span>
-                
-             </div>
+             
           </div>
 
           <button type="button" className="btn btn-lg btn-success  d-block"> 
@@ -653,4 +677,4 @@ return (
 }
 
 
-export default Home;
+//export default Home;

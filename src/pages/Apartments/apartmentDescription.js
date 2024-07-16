@@ -9,16 +9,57 @@ function ApartmentDescription(){
 
     const url = "https://localhost:44311/api/controller/GetAllApartments";
 
+    let unitArray = new Array();
+
     useEffect(() => {
         axios.get(url)
             .then(response => {
                 setApartments(response.data);
                 console.log(response.data);
+                unitArray = JSON.stringify(response.data);
+                //console.log("Unit ArraY" + unitArray);
             })
             .catch(error => {
                 console.error(error);
             })
     },[]);
+
+    unitArray = apartments;
+    
+    // console.log("Unit ArraY" + JSON.stringify(unitArray));
+
+    var oneBedCount = 0;
+    var twoBedCount = 0;
+    var threeBedCount = 0;
+
+    for( let i = 0; i < unitArray.length ; i++ )
+    {
+
+        var bedroomNumber = JSON.stringify(apartments[i].bedroomNumber);
+
+        if(bedroomNumber == "1" )
+        {
+            oneBedCount = oneBedCount + 1;
+        }
+
+        if(bedroomNumber == "2")
+        {
+            twoBedCount = twoBedCount + 1;
+        }
+
+        if(bedroomNumber == "3")
+        {
+            threeBedCount = threeBedCount + 1;
+        }     
+
+        // console.log("Bedroom Number : ->" + JSON.stringify(apartments[i].bedroomNumber));
+
+    }
+    
+    console.log("Three Bed Count " + oneBedCount);
+    console.log("Three Bed Count " + twoBedCount);
+    console.log("Three Bed Count " + threeBedCount);
+
 
     return(
         <div className="container">
@@ -29,19 +70,19 @@ function ApartmentDescription(){
                     <div className="row">
                         <div className="col-3 sumCols1">
                             <h5> Total Apartments </h5>
-                            <span className="totalNo"> 100 </span>
+                            <span className="totalNo"> { oneBedCount + twoBedCount + threeBedCount } </span>
                         </div>
                         <div className="col-3 sumCols2">
                             <h5> Total 3 Bedroom Apartments </h5>
-                            <span className="totalNo"> 100 </span>
+                            <span className="totalNo"> { threeBedCount } </span>
                         </div>
                         <div className="col-3 sumCols3">
                             <h5> Total 2 Bedroom Apartments </h5>
-                            <span className="totalNo"> 100 </span>
+                            <span className="totalNo"> { twoBedCount } </span>
                         </div>
                         <div className="col-3 sumCols4">
                             <h5> Total 1 Bedroom Apartments </h5>
-                            <span className="totalNo"> 100 </span>
+                            <span className="totalNo"> { oneBedCount } </span>
                         </div>
                     </div>
                 </div>

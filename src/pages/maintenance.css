@@ -25,3 +25,48 @@
 .maintenance-heading-row{
     padding: 2% 0% 2% 0%;
 }
+
+.mainJobsContainer{
+    background-color: #fff;
+    margin: 8% 2% 0% 15%;
+    width: 80%;
+    padding: 2%;
+    border-radius: 25px;
+    border: 1px solid #000000;
+    box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.mainDivCurrent{
+    width: 50%;
+    background-color: #b7f4b7;
+    border-radius: 20px;
+}
+
+.mainDivPrev{
+    background-color:#198754;
+    border-radius: 20px;
+    width: 50%;
+}
+
+.prevJobRow{
+    background-color: #000000;
+    margin: 2%;
+    border-radius: 20px;
+    padding: 2%;
+    color: #ffffff;
+    text-align: left;
+    
+}
+
+.bigSpanPrevJob{
+    display: block;
+    text-align: left;
+}
+
+.spanPrevJob{
+    font-weight: 800;
+}
+
+.modalSpan{
+    display: block;
+}
