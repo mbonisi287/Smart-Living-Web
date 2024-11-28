@@ -9,3 +9,22 @@
     box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
     
 }
+
+.freeApts{
+    background-color: #198754;
+    color: #ffffff;
+    border-radius: 20px;
+}
+
+.occupiedApts{
+    background-color: #b7f4b7;
+    border-radius: 20px;
+}
+
+.allocationsHeading{
+    border: 2px solid #000000;
+    border-radius: 20px;
+    margin: 2% 0%;
+    padding: 1% 0%;
+    align-content: left;
+}

@@ -1,0 +1,33 @@
+.creditTable{
+    background-color:  #ffffff;
+    margin: 5% auto;
+    border-radius: 25px;
+    padding: 2%;
+
+    border: 1px solid #000000;
+    box-shadow: inset 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.creditCheckId, .creditId{
+    display: none;
+}
+
+.credIdSpan{
+    color:darkgreen;
+    font-style: italic;
+
+}
+
+select {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: cursive, sans-serif;
+    outline: 0;
+    background: #2ecc71;
+    color: #fff;
+    border: 1px solid black;
+    padding: 4px;
+    border-radius: 9px;
+  }
+
+

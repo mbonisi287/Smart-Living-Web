@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FaEnvelopeOpenText, FaRegBell, FaRegComments } from "react-icons/fa";
+//import Dropdown from 'react-bootstrap/Dropdown';
 
 import '../components/header.css';
+
+
+
+
 
 function Header (){
 
@@ -32,22 +38,36 @@ function Header (){
     }
 
   }, []);
+  
+
 
   return(
     <div>
-<nav className="navbar navbar-expand-lg navbar-light fixed-top nav smHeader">
+      <nav className="navbar navbar-expand-lg navbar-light fixed-top nav smHeader">
 
-  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span className="navbar-toggler-icon"></span>
-  </button>
-  <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-    <ul className="navbar-nav">
-      <li className="nav-item">
-        <a className="nav-link" href="#"> Hi { userEmail } </a>
-      </li>
-    </ul>
-  </div>
-</nav>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul className="navbar-nav">
+            <div>
+                <FaEnvelopeOpenText />
+            </div>
+
+            <div>
+              <FaRegBell />
+            </div>
+
+            <div>
+              <FaRegComments />
+            </div>
+
+            <li className="nav-item">
+              <a className="nav-link" href="#"> Hi { userEmail } </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </div>
  
 )}

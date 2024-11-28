@@ -3,7 +3,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { AddReaction, Article, AttachMoney, EngineeringTwoTone, Handshake, HolidayVillage, HouseTwoTone, HowToRegTwoTone, PeopleTwoTone, ReportProblem } from '@mui/icons-material';
+import { AddReaction, Article, AttachMoney, EngineeringTwoTone, Handshake, HolidayVillage, HouseTwoTone, HowToRegTwoTone, PeopleAltRounded, PeopleTwoTone, ReportProblem } from '@mui/icons-material';
  
 export const navData = [
     {
@@ -16,7 +16,7 @@ export const navData = [
         id: 1,
         icon: <AttachMoney/>,
         text: "Rentals",
-        link: "rentals"
+        link: "Rentals/rentals"
     },
     {
         id: 2,
@@ -35,7 +35,7 @@ export const navData = [
         id: 4,
         icon: <Handshake/>,
         text: "Lease Agreements",
-        link: "leaseAgreement"
+        link: "LeaseAgreement/leaseAgreement"
     }, 
     {
         id: 5,
@@ -47,30 +47,36 @@ export const navData = [
         id: 6,
         icon: <AddReaction/>,
         text: "New Applicants",
-        link: "newtenant"
+        link: "Tenant/newtenant"
     },
     {
         id: 7,
         icon: <EngineeringTwoTone/>,
         text: "Maintenance Jobs",
-        link: "maintenance"
+        link: "Maintenance/maintenance"
     },
     {
         id: 8,
         icon: <HouseTwoTone/>,
         text: "Club House",
-        link: "clubhouse"
+        link: "Clubhouse/clubhouse"
     }, 
     {
         id: 9,
         icon: <ReportProblem/>,
         text: "Complaints",
-        link: "LeaseAgreement"
+        link: "Complaints/complaints"
     },
     {
         id: 10,
         icon: <PeopleTwoTone/>,
         text: "Visitor Reports",
-        link: "visitors"
+        link: "Visitors/visitors"
+    },
+    {
+        id: 11,
+        icon: <PeopleAltRounded/>,
+        text: "Profile",
+        link: "UserProfile/profileDetails"
     }
 ]

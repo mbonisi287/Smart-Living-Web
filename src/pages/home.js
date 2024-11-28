@@ -17,21 +17,35 @@ import ApexCharts from 'apexcharts';
 //var CanvasJS = CanvasJSReact.CanvasJS;
 //var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
+//Dashboard Date:
+
+function getDate(){
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const date = today.getDate();
+  return `${date}/${month}/${year}`;
+}
+
 export default function Home() {
+
+  // Dashboard Date
+  const [ currentDate, setCurrentDate ] = useState(getDate());
+
   /* declare the domain name */
 
     const domainName = "http:localhost:3000";
-    const clubHouse = () => {  window.location.href = "clubHouse"; }
+    const clubHouse = () => {  window.location.href = "Clubhouse/clubHouse"; }
 
-    const newTenantApp = () => {  window.location.href =  "newTenant";  }
+    const newTenantApp = () => {  window.location.href =  "Tenant/newTenant";  }
 
-    const maintenance = () => { window.location.href = "maintenance"; }
+    const maintenance = () => { window.location.href = "Maintenance/maintenance"; }
 
-    const tenantDocuments = () => { window.location.href = "tenantDocuments";  }
+    const tenantDocuments = () => { window.location.href = "Tenant/tenantDocuments";  }
 
-    const payRent = () => { window.location.href = "payRent";  }
+    const payRent = () => { window.location.href = "Rentals/payRent";  }
 
-    const complaints = () => { window.location.href = "complaints"  }
+    const complaints = () => { window.location.href = "Complaints/complaints"  }
 
     const meterUsage = () => { window.location.href = "meterUsage";  }
 
@@ -417,15 +431,16 @@ if((userEmail == null) && (countWebToken == 0 )){
 }
 
 
+
+
+
+
 return (
 
   <div className="container adminContainer">
     <div className="adminDashboard">
       <div className="row welcomeRow">
-        <h5> Wednesday, 27 March 2024 </h5>
-        <h4> Welcome, Mbonisi </h4>
-        <p> Report Summary </p>
-        
+        <h4> Dashboard Summary - {currentDate} </h4>        
       </div>
 
       <div className="row snapShotRow">
@@ -526,10 +541,7 @@ return (
                 <div className="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 
                 <div id="chartsVisitor"></div>
-                    This is some placeholder content the Contact tab's associated content. Clicking another tab 
-                          will toggle the visibility of this one for the next. The tab JavaScript swaps classes to 
-                          control the content visibility and styling. You can use it with tabs, pills, 
-                          and any other .nav-powered navigation...                      
+                    This is some placeholder content                    
                 </div>
 
                 <div className="tab-pane fade" id="nav-credit" role="tabpanel" aria-labelledby="nav-credit-tab">

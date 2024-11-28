@@ -15,14 +15,17 @@ import './App.css';
 import Sidenav from './components/sidenav';
 import Home from "./pages/home";
 import Settings from "./pages/settings";
-import Visitors from "./pages/visitors";
-import Maintenance from "./pages/maintenance";
-import Rentals from "./pages/rentals";
-import NewTenant from './pages/newTenant';
-import ClubHouse from './pages/clubhouse';
-import TenantDocuments from './pages/tenantDocuments';
+import Visitors from "./pages/Visitors/visitors";
+import Maintenance from "./pages/Maintenance/maintenance";
+import SingleJob from './pages/Maintenance/singleJob';
+
+
+import Rentals from "./pages/Rentals/rentals";
+import NewTenant from './pages/Tenant/newTenant';
+import ClubHouse from './pages/ClubHouse/clubhouse';
+import TenantDocuments from './pages/Tenant/tenantDocuments';
 //import PayRent from './pages/payRent';
-import Complaints from './pages/complaints';
+import Complaints from './pages/Complaints/complaints';
 import MeterUsage from './pages/meterUsage';
 
 
@@ -43,7 +46,7 @@ import Footer from './components/footer';
 import Cookies from 'js-cookie';
 
 import jwt from 'jsonwebtoken';
-import LeaseAgreement from './pages/leaseAgreement';
+import LeaseAgreement from './pages/LeaseAgreement/leaseAgreement';
 import ApartmentDescription from './pages/Apartments/apartmentDescription';
 
 
@@ -111,21 +114,24 @@ export default function App() {
           <main>
             <Routes>
               <Route path="/" element={<Home />}/>
-              <Route path="/rentals" element={<Rentals />}/>
-              <Route path="/visitors" element={<Visitors />}/>
-              <Route path="/maintenance" element={<Maintenance />}/>
+              <Route path="/Rentals/rentals" element={<Rentals />}/>
+              <Route path="/Visitors/visitors" element={<Visitors />}/>
+
+              <Route path="/Maintenance/maintenance" element={<Maintenance />}/>
+              <Route path="/Maintenance/singleJob" element={<SingleJob />}/>
+
               <Route path="/settings" element={<Settings />}/>  
-              <Route path="/newTenant" element={<NewTenant />}/>   
-              <Route path="/clubhouse" element={<ClubHouse />}/> 
-              <Route path="/tenantDocuments" element={<TenantDocuments/>}/> 
+              <Route path="/Tenant/newTenant" element={<NewTenant />}/>   
+              <Route path="/Clubhouse/clubhouse" element={<ClubHouse />}/> 
+              <Route path="/Tenant/tenantDocuments" element={<TenantDocuments/>}/> 
               
-              <Route path="/complaints" element={<Complaints />}/>
+              <Route path="/Complaints/complaints" element={<Complaints />}/>
               <Route path="/meterUsage" element={<MeterUsage />}/>
               <Route path="/UserAccount/login" element={<Login />}/>
               {/* <Route path="/UserAccount/signIn" element={<SignIn />}/> */}
               <Route path="/CreditApplications/creditApplications" element={<CreditApplications />}/>
               <Route path="/UserProfile/profileDetails" element={<ProfileDetails/>} />
-              <Route path="/leaseAgreement" element={<LeaseAgreement />}/>
+              <Route path="/LeaseAgreement/leaseAgreement" element={<LeaseAgreement />}/>
 
               <Route path="Apartments/allocatedUnits" element={<AllocatedUnits/>} />
               <Route path="Apartments/apartmentDescription" element={<ApartmentDescription/>} />

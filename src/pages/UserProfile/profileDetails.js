@@ -14,8 +14,35 @@ function ProfileDetails (){
     let userEmail = userEmail1.replaceAll("\"", "").toString();
     console.log("Email is now " + userEmail);
 
-    //bool profileActive = false;
+    const checkProfileUrl = "https://localhost:44311/api/controller/Email?Email=mbonisitshuma287@gmail.com"; 
 
+    //const checkProfileUrl = "https://localhost:44311/api/controller/GetAllProfiles"; 
+
+    const  [ curProfile , setCurProfile] = useState("");
+    
+    const profileObj = "";
+
+    useEffect(() => {
+        axios.get(checkProfileUrl)
+        .then(response => {
+            const profileObj = new Array(JSON.stringify(response.data));
+            console.log("Parsed 2.0  - Stringified Object => " + profileObj + "Profile Name");    
+
+            //let profObj = JSON.parse(profileObj);
+            
+            //const profileArray = new Array(JSON.stringify(response.data));
+            //console.log("Parsed Object => " + profObj + "Profile Name");
+            
+            //console.log(profObj + "Profile Name");
+
+            setCurProfile(profileObj);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    },[]);
+
+    //bool profileActive = false;
     const profileResponse = "";
 
     const [formData, setFormData ] = useState ({
@@ -61,52 +88,64 @@ function ProfileDetails (){
 
 
     return(
-        <div className="container">
+        <div className="container profileContainer">
             <div className="profileHeading">
-                Personal Profile Details
+                <h2> Personal Details </h2>
             </div>
-            <div className="profileForm">
-                <form onSubmit={handleSubmit}>
-                  {/*  <label> Email address 
-                            <Form.Control onChange={this.handleChange} type="text" 
-                            placeholder="Enter your name" />
-                        <input onChange={handleChange} name="email" value={formData.email = userEmail}
-                            type="email" placeholder="Enter your email address" 
-                        />
-                    </label>*/}
-                        
+            <div className="">
 
-                    <label>
-                        First Name                    
-                        <input onChange={handleChange} name="firstName" value={formData.firstName}
-                        type="text" placeholder="Enter your First Name" />
-                    </label>
+            <nav>
+                <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                    <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true"> Personal Details</button>
+                    <button className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"> Work Details </button>
+                   
+                </div>
+                </nav>
+                <div className="tab-content" id="nav-tabContent">
+                <div className="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="row pDetails">
 
-                    <label>
-                        Last Name                    
-                        <input onChange={handleChange} name="lastName" value={formData.lastName}
-                        type="text" placeholder="Enter your Last Name"/>
-                    </label>
+                        <div class="col-6 text-justify">
+                            <div class="formDisplay text-left">
+                                <table class="table table-success">
+                                 
+                                        <tr> 
+                                          <td class="text-start"> First Name:  </td>
+                                          <td>  {curProfile.firstName}</td>
+                                        </tr>
+                                        
+ 
+                                    <tr> <td class="text-start"> Surname: </td> <td></td>  </tr>
+                                    <tr> <td class="text-start"> Email: </td> <td> {userEmail1} </td>  </tr>
+                                    <tr> <td class="text-start"> ID or Passport: </td> <td></td>  </tr>
+                                    <tr> <td class="text-start"> Primary Phone Number: </td> <td></td>  </tr>
+                                    <tr> <td class="text-start"> Secondary Phone Number: </td> <td></td>  </tr>
+                                    <tr class="text-start" > Next of Kin Details </tr>
+                                    <tr> <td class="text-start"> Name: </td> <td></td>  </tr>
+                                    <tr> <td class="text-start"> Surname: </td> <td></td>  </tr>
+                                    <tr> <td class="text-start"> Phone Number: </td> <td></td>  </tr>
+                                    <tr> <td class="text-start"> Relationship </td> <td></td>  </tr> 
+                                </table>
+                            </div>
+                        </div>
 
-                    <button type="submit" className="btn btn-lg btn-success"> Create Profile </button>
-                </form>
+                        <div class="col-6">
+                            <button class="btn btn-primary"> Edit Details </button>
+                        </div>
+                    </div>
+
+                 
+                    
+                    
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+                
+                </div>
+                            
             </div>
             
 
-            {/*Form to display the Profile Details after creating the Profile Details 
-            <div className="displayProfileDetails">
-                {
-                    post.slice(0, 2).map((user, index) => {
-                        return
-                        <div className="row" key={index}>
-                            <div className="col-6"></div>
-                            <div className="col-6"></div>
-                        </div>
-                    })
-
-                }
- 
-            </div>*/}
+            
         </div>
     )
 
