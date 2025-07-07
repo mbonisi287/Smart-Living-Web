@@ -1,0 +1,36 @@
+.incomingRow{
+    background-color: #ffffff;
+    color: #000000;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.outgoingRow{
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.incomingInspection{
+    margin-top: 20px;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.checklistFormItem, .form-group{
+    width: 30% !important;
+    display: inline-block;
+    margin: 0px 5px;
+}
+
+.textChecklist{
+    width: 100% !important;
+     display: inline-block;
+    
+}
+.form-label{
+    font-size: 1.2rem;
+}

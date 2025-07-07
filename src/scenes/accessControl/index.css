@@ -1,0 +1,17 @@
+.visitorBtn{
+    background-color: #ffffff;
+    padding: 2%;
+    border-radius: 25px;
+}
+
+.codeArea{
+    background-color: darkcyan;
+    padding: 2%;
+    border-radius: 25px;
+}
+
+.visitorArea{
+    background-color: lightblue;
+    padding: 2%;
+    border-radius: 25px;
+}

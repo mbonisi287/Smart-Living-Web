@@ -1,0 +1,27 @@
+.form-group{
+    width: 100%;
+
+    
+}
+
+.formContainer{
+    background-color: #70d8bd;
+    padding: 1%;
+    border-radius: 25px;
+}
+
+.revSpan{
+    font-size: medium;
+    color: #000000;
+    font-weight: 500;
+    display: block;
+
+}
+
+  .revSpanInner{
+     color:#fd7e14;
+   }
+
+.revSpanInnerName, .revSpanInnerSurname{
+   text-transform: capitalize;
+}
