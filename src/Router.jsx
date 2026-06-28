@@ -26,6 +26,9 @@ import {
   AccessControl,
   SuccessPayment,
   CancelledPayment,
+  Company,
+  Property,
+  PurchaseOrder,
   
 } from "./scenes";
 
@@ -58,6 +61,10 @@ const AppRouter = () => {
           <Route path="/accessControl" element={<AccessControl />} />
           <Route path="/successPayment" element={<SuccessPayment/>} />
           <Route path="/cancelledPayment" element={<CancelledPayment/>} />
+          <Route path="/company" element={<Company />} />
+          <Route path="/property" element={<Property />} />
+          <Route path="/purchaseOrder" element={<PurchaseOrder />} />
+
         </Route>
       </Routes>
     </Router>

@@ -54,14 +54,14 @@ const Rentals = () => {
                         <div className="rentDivSect">
                             <span className="rentP"> Rent Due For {formattedDate} </span>
                             <span className="rentAmt">  R 200 000 </span>
-                            <button className="btn btn-primary"> Pay Now </button>
+                            <button className="btn btn-primary payBtn"> Pay Now </button>
                             <img className="snapShotImg" src={payIcon} alt="Logo"/>
                         </div>
                     </div>
 
                     <div className="col-6 col-lg-6">
                         <div className="rentDivSect">
-                            <p> Payment Options Available </p>
+                            <h5> Payment Options Available </h5>
                             <img class="paymentImages" src={eftIcon} alt="Logo" height={100} width={200} />
                            
                         
@@ -71,11 +71,11 @@ const Rentals = () => {
                 </div>
 
 
-                <div className="row">
+                <div className="row paymentsRow">
                     <div className="col-4 col-lg-4">
                         <div className="rentDivSect">
                             <span className="rentP"> Expected Rentals  </span>
-                            <span className="spanDate"> Total sum of money expected for the month of {formattedDate} </span>
+                            <span className="spanText"> Total sum of money expected for <br /> the month of {formattedDate} </span>
                             <span className="rentAmt">  R 200 000 </span>
                             <img className="snapShotImg" src={payIcon} alt="Logo"/>
                         </div>
@@ -106,45 +106,66 @@ const Rentals = () => {
                 <div className="row">
                     <div className="col-6 col-lg-6">
                         <h4> Recent Rental Payments </h4>
-                        
-                    <div className="rentTable">  
-                        <table class="table table-striped">
-                            <thead class="thead-dark">
-                                <tr>
-                                    
-                                    <th> Tenant Id</th>
-                                    <th> Unit No </th>
-                                    <th> Due Date </th>
-                                    <th> Payment Date </th>
-                                    <th> Rent Price (R) </th>
-                                    <th> Payment Status </th>
-                                    <th> Action  </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                // create two tables depending on where the user is admin or a normal tenant
-                                allRentals.map((rent, index) => {
-                                    return <tr key={index}>
+                        <p> Showing the Last 10 payments </p>                        
+                        { 
+                            allRentals.slice(-10).map((rent, index) => {
+                                return <div key={index} className="row rowPayments">
+                                    <span> Unit No: {rent.unitNo} </span>
+                                    <span> Payment Date: {rent.unitNo} </span>
+                                    <span> Due Date: {rent.unitNo} </span>
+                                    <span className="btnSpan"> 
+                                        <button className="btn btn-primary small"> View Rental Statement </button>
+                                    </span>
+                                </div>
+                            })
+                        }                        
+                        {/*<div className="rentTable">  
+                            <table class="table table-striped">
+                                <thead class="thead-dark">wh
+                                    <tr>
                                         
-                                        <td>{rent.profileId}</td>
-                                        <td>{rent.unitNo}</td>
-                                        <td>{rent.dueDate}</td>
-                                        <td>{rent.paymentDate == '2020-01-01' ? '-' : rent.paymentDate}</td>
-                                        <td>{rent.rentPrice}</td>
-                                        <td>{rent.paymentStatus == 0 ? 'Owing' 
-                                        : rent.paymentStatus == 1 ? 'Paid' : ''}</td>
-                                        <td><button className="btn btn-primary"> Generate Rental Statement </button></td>
-                                        
+                                        <th> Tenant Id</th>
+                                        <th> Unit No </th>
+                                        <th> Due Date </th>
+                                        <th> Payment Date </th>
+                                        <th className="colHide"> Rent Price (R) </th>
+                                        <th> Payment Status </th>
+                                        <th> Action  </th>
                                     </tr>
-                                })
-                            }
-                            </tbody>
-                        </table> 
-                    </div>
+                                </thead>
+                                <tbody>
+                                {
+                                    // create two tables depending on where the user is admin or a normal tenant
+                                    allRentals.map((rent, index) => {
+                                        return <tr key={index}>
+                                            
+                                            <td>{rent.profileId}</td>
+                                            <td>{rent.unitNo}</td>
+                                            <td>{new Date(rent.dueDate).toLocaleString('en-GB', {
+                                                                                    day: '2-digit',
+                                                                                    month: '2-digit',
+                                                                                    year: 'numeric',
+                                                                                    hour: '2-digit',
+                                                                                    minute: '2-digit',
+                                                                                    second: '2-digit',
+                                                                                    hour12: true
+                                                                                    })}</td>
+                                            <td>{rent.paymentDate == '2020-01-01' ? '-' : rent.paymentDate}</td>
+                                            <td className="colHide">{rent.rentPrice}</td>
+                                            <td>{rent.paymentStatus == 0 ? 'Owing' 
+                                            : rent.paymentStatus == 1 ? 'Paid' : ''}</td>
+                                            <td><button className="btn btn-primary"> View Rental Statement </button></td>
+                                            
+                                        </tr>
+                                    })
+                                }
+                                </tbody>
+                            </table> 
+                        </div> */}
                     </div>
                     <div className="col-6 col-lg-6">
-                        <h4> Outstanding Rental Payments </h4>                        
+                        <h4> Outstanding Rental Payments </h4> 
+                        <p> Showing the Last 10 transactions </p>                       
                     </div>
                 </div>
             </div>

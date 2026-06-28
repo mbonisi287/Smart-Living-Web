@@ -27,6 +27,7 @@ const Inspections = () => {
     const [ inspectionsList, setInspectionsList ] = useState([]);
 
     const [ conditionCheck, setConditionCheck ] = useState('');
+    const [ roomComponentItem, setRoomComponentItem ] = useState('');
 
     const [ fileOne, setFileOne ] = useState('');
     const [ fileTwo, setFileTwo ] = useState('');
@@ -66,13 +67,51 @@ const Inspections = () => {
     };
 
     const { control, handleSubmit, watch, trigger,  formState: { errors }  } = useForm({
-        defaultValues: { name: "", surname:"", email: "", docType:"", 
-            identityNoPassportNo: "", phoneNo:"", fileName: ""
+        defaultValues: { unitNo: "", inspectionType:"", roomComponent: "", room:"", 
+            conditionCheck: "", itemDescription:"", filePathOne: "", filePathTwo:"", filePathThree: ""
+
             // altContactNo:"", bookingRef:"", bookingDate:"", departAirport: "", 
             // arrivalAirport:"", travelDate: "",
             //voucherNo: "", voucherAmount:"" 
         },
     });
+
+    const onSubmit = async (data) => {
+
+        data.conditionCheck = conditionCheck;
+        //data.unitNo = "";
+        //data.roomComponent = "";
+        try
+        {
+            const payload = new FormData();
+
+            payload.append("unitNo", formData.unitNo);
+            payload.append("inspectionType", formData.inspectionType);
+            payload.append("roomComponent", formData.roomComponent);
+            payload.append("room", formData.room);
+            payload.append("conditionCheck", conditionCheck);
+            payload.append("itemDescription", formData.itemDescription);
+
+            if (fileOne) payload.append("filePathOne", fileOne);
+            if (fileTwo) payload.append("filePathTwo", fileTwo);
+            if (fileThree) payload.append("filePathThree", fileThree);
+
+                  await axios.post(`${API_URL}CreateInspectionItem`, payload, {
+                    headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                });
+
+            setLoadingSubmit(true);
+
+        }catch{
+
+        }finally{
+
+        }
+
+    };
 
     useEffect(() => {
     axios.get(API_URL + "GetAllInspections" , {
@@ -114,6 +153,7 @@ const Inspections = () => {
                                         <td> {ten.inspectionDate} </td>
                                         <td> {ten.inspectionType} </td>
                                         <td> {ten.inspectionStatus} </td>
+                                        <td> <button className="btn btn-primary">View Inspection</button> </td>
                                     </tr>
                                  })
                             }
@@ -133,7 +173,9 @@ const Inspections = () => {
                 inspectionArea && 
                 <>
 
-                    <div className="incomingInspection">
+                <div className="row incomingInspection">
+                    <div className="col-8">
+                        <div className="">
                 
                         <button className="btn btn-success" onClick={() => setIncomingInspection(true)}> Begin Inspection Checklist </button> | 
                         <button className="btn btn-danger" onClick={() => setIncomingInspection(false)}> Close Inspection Checklist </button>
@@ -143,14 +185,23 @@ const Inspections = () => {
                             <>
                                 <div className="incomingChecklist">
                                     <h5> Please follow the next steps to do the Incoming Inspection </h5>
-                                    <form>
+                                    <form onSubmit={handleSubmit(onSubmit)}>
                                         <div className="form-group checklistFormItem">
                                             <label className="form-label"> Room Component </label>
-                                            <select className="form-select">
-                                            { roomComponent.map(item =>(
-                                                <option value={item}> {item} </option>
-                                            ))}
-                                            </select>
+                                            <Controller 
+                                            name="roomComponent"
+                                            control={control}
+                                            render={({ field}) =>
+                                                <select 
+                                                //value={roomComponent} 
+                                                onChange={(e) => setRoomComponentItem(e.target.value)}
+                                                className="form-select">
+                                                { roomComponent.map(item =>(
+                                                    <option value={item}> {item} </option>
+                                                ))}
+                                            </select> 
+                                            }
+                                            />
                                         </div>
 
                                         <div className="form-group checklistFormItem">
@@ -311,7 +362,15 @@ const Inspections = () => {
                                 </div>
                             </>
                         }               
+                        </div>
                     </div>
+                    <div className="col-4">
+                        
+                    </div>
+
+                </div>
+
+                   
                 </>
             }
     

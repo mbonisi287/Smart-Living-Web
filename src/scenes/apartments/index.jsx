@@ -125,7 +125,7 @@ const Apartments = () => {
 
    
     
-           setLoading(true);
+          setLoading(true);
           setShowRedirectSpinner(true);
           try{
               await axios.post(API_URL + "AllocateApartment", data);

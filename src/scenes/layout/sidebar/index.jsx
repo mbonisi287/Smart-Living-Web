@@ -219,6 +219,42 @@ const role = payload?.["http://schemas.microsoft.com/ws/2008/06/identity/claims/
  
    
         </Menu>
+
+        <Typography
+          variant="h6"
+          color={colors.gray[300]}
+          sx={{ m: "15px 0 5px 20px" }}
+        >
+          {!collapsed ? "Property Admin" : " "}
+        </Typography>{" "}
+        <Menu
+          menuItemStyles={{
+            button: {
+              ":hover": {
+                color: "#868dfb",
+                background: "transparent",
+                transition: ".4s ease",
+              },
+            },
+          }}
+        >
+          <Item
+            title="Manage Properties"
+            path="/property"
+            colors={colors}
+            icon={<PeopleAltOutlined />}
+          />
+           <Item
+            title="Manage Company"
+            path="/company"
+            colors={colors}
+            icon={<PeopleAltOutlined />}
+          />
+ 
+   
+        </Menu>
+
+
         <Typography
           variant="h6"
           color={colors.gray[300]}

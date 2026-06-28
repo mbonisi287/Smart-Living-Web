@@ -31,6 +31,9 @@ const LeaseAgreement = () => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
+
+    const navigate = useNavigate();
+
     useEffect(() => {
         // Set start date to today
         const today = new Date();
@@ -56,7 +59,25 @@ const LeaseAgreement = () => {
         // Missing values on Booking Agent
     const { control, handleSubmit} = useForm();
 
-    const onSubmit = async () => {
+    const onSubmit = async (data) => {
+
+        leaseModalData.startDate = startDate;
+         leaseModalData.endDate = endDate;
+         leaseModalData.leasePeriod = leasePeriod;
+
+        console.log("Start Date........." +  leaseModalData.startDate);
+
+        try{
+             const response = await axios.put(
+                `${API_URL}UpdateLease?leaseID=${leaseModalData.leaseId}`, leaseModalData);
+              successResponse();
+
+        } catch(error){
+
+        } finally {
+            handleClose();
+            navigate('/leaseAgreements'); 
+        }
 
     };
 
@@ -169,10 +190,12 @@ const LeaseAgreement = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group row">
                             <label className="form-label"> Unit No: {leaseModalData.unitNo}</label>
+                            <input name="unitNo" value={leaseModalData.unitNo}/>
                         </div>
 
                         <div className="form-group row">
                             <label className="form-label"> Tenant Email: {leaseModalData.profileId} </label>
+                            <input name="profileId" value={leaseModalData.profileId}/>
                         </div>
 
         
@@ -195,12 +218,12 @@ const LeaseAgreement = () => {
                         <div className="form-group row">
                             <div className="col-6 col-lg-6 col-xl-6">
                                 <label className="form-label"> Start Date: </label>
-                                <input className="form-select" value={startDate} readOnly />
+                                <input name="startDate" className="form-select" value={startDate} readOnly />
                             </div>
 
                             <div className="col-6 col-lg-6 col-xl-6">
                                 <label className="form-label"> End Date: </label>
-                                <input className="form-select" value={endDate} readOnly />
+                                <input name="startDate" className="form-select" value={endDate} readOnly />
                             </div>
                         </div>
 

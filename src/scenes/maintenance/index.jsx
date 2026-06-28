@@ -6,6 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import Modal from 'react-bootstrap/Modal';
 //import Form from 'react-bootstrap/Form';
 import { ModalHeader } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 import {    BrowserRouter as Router,    Routes,   
      Route, Link, useLocation, useNavigate,  } from "react-router-dom";
 import { Stepper, Step, StepLabel, Box, useTheme } from "@mui/material";
@@ -23,7 +24,14 @@ const steps = ["Maintenance Job Details", "Review & Submit"];
 const Maintenance = () => {
 
     const [ jobForm, setJobForm ] = useState(false);
-    const handleClose = ()  => setJobForm(false);
+    const [ jobDetails, setJobDetails ] = useState(false);
+    const [ jobModal, setJobModal ] = useState([]);
+
+     const [selectedValue, setSelectedValue] = useState('');
+    const handleClose = ()  => {
+      setJobForm(false);
+      setJobDetails(false);
+    }
 
     // Ref object to reference the input element
     const inputFile = useRef(null);
@@ -71,6 +79,18 @@ const Maintenance = () => {
     const [ jobItem, setJobItem ] = useState(''); 
 
     const [ allJobs, setAllJobs ] = useState([]);
+
+    const [ techOptions, setTechOptions ] = useState([]);
+
+    const [ poSection, setPoSection ] = useState(false);
+
+    //PO React States
+    const [purchaseOrders, setPurchaseOrders] = useState([]);
+    const [newPO, setNewPO] = useState({ poNumber: "", supplierName: "" });
+    const [selectedPO, setSelectedPO] = useState(null);
+    const [poItems, setPoItems] = useState([]);
+    const [newItem, setNewItem] = useState({ description: "", quantity: 1, unitPrice: 0 });
+    const [editingItem, setEditingItem] = useState(null);
 
 
     const handleReset = () => {
@@ -165,31 +185,102 @@ const Maintenance = () => {
     };
 
       useEffect(() => {
-    // Function to fetch vouchers
-    const fetchJobs = () => {
-      axios.get(API_URL + "AllJobs" ,{
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
-      })
-        .then((response) => {
-          setAllJobs(response.data);
-          //console.log("Fetched Vouchers:", response.data);
-        })
-        .catch((error) => {
-          //console.error("API error:", error);
-        });
+        // Function to fetch vouchers
+        const fetchJobs = () => {
+          axios.get(API_URL + "AllJobs" ,{
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+          })
+            .then((response) => {
+              setAllJobs(response.data);
+              //console.log("Fetched Vouchers:", response.data);
+            })
+            .catch((error) => {
+              //console.error("API error:", error);
+            });
+        };
+
+        // Call immediately on mount
+        fetchJobs();
+
+        // Set interval to run every 60 seconds
+        const intervalId = setInterval(fetchJobs, 60000);
+
+        // Cleanup on unmount
+        return () => clearInterval(intervalId);
+      }, []);
+
+      const JobModalData = (jobs) => {
+        setJobModal(jobs);
+        setJobDetails(true);
+
+      } 
+
+
+    const handleChange = (event) => {
+      setSelectedValue(event.target.value);
     };
 
-    // Call immediately on mount
-    fetchJobs();
+      // Fetch options from API
+    useEffect(() => {
+      axios.get(API_URL + 'users/GetAllUsers' , {
+                    headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+              }
+      })
+        .then(response =>  setTechOptions(response.data)) // Assume data is an array of { id, name }
+        .catch(error => console.error('Error fetching data:', error));      
+    }, []); 
 
-    // Set interval to run every 60 seconds
-    const intervalId = setInterval(fetchJobs, 60000);
+    // Submit for Assign a technician
+    const onSubmit2 = async () => {
+      if (!selectedValue) {
+        alert("Please select a user to assign the query.");
+        return;
+      }
 
-    // Cleanup on unmount
-    return () => clearInterval(intervalId);
-  }, []);
+      try{
+        const updatedJob = {
+          ...jobModal,
+          allocatedTo: selectedValue,
+          jobStatus: 2 
+        };
+
+        const response = await axios.put(
+          `${API_URL}UpdateJob?jobId=${updatedJob.jobId}`, updatedJob
+        );
+
+        if(response.status == 200){
+          alert("Maintenance Request Successfully updated");
+        }
+
+      } catch (error) {
+
+      }
+
+
+    };
+
+    const createPO = async () => {
+      try {
+      await axios.post("/api/purchaseorders", newPO);
+      setNewPO({ poNumber: "", supplierName: "" });
+      fetchPOs();
+      } catch (err) {
+      console.error("Error creating PO", err);
+      }
+    };
+
+    const loadItems = async (poId) => {
+      try {
+      setSelectedPO(poId);
+      const res = await axios.get(`/api/purchaseorders/${poId}/items`);
+      setPoItems(res.data);
+      } catch (err) {
+      console.error("Error loading items", err);
+      }
+    };
 
 
    
@@ -386,8 +477,7 @@ const Maintenance = () => {
                     </Modal>
 
                        {              
-                            successMessage &&          
-
+                            successMessage &&       
                             <div className="verifySuccess">
                             {showRedirectSpinner && (
                                 <div className="overlay">
@@ -404,9 +494,7 @@ const Maintenance = () => {
                             )}
                             
 
-                            </div>
-
-                          
+                            </div>                          
                         }
 
                     
@@ -455,6 +543,7 @@ const Maintenance = () => {
                             <td> Job Date </td>
                             <td> Job Item</td>
                             <td> Job Description </td>
+                            <td> Status </td>
                             <td> Assigned To</td>
                             <td> Assigned By </td>
                             <td> Allocation Date  </td>
@@ -471,19 +560,178 @@ const Maintenance = () => {
                                     <td> {jobs.jobDate} </td>
                                     <td> {jobs.jobItem} </td>
                                     <td> {jobs.jobItemDescription} </td>
+                                    <td> {jobs.jobStatus}</td>
                                     <td> {jobs.allocatedTo}</td>
                                     <td> {jobs.allocatedBy} </td>
                                     <td> {jobs.allocationTime}</td>
                                     <td> {jobs.completionTime}</td>
-                                    <td> <button className="btn btn-success"> Click To Expand For More Details </button></td>
+                                    <td> <button className="btn btn-success" onClick={() => JobModalData(jobs)} > Click To Expand For More Details </button></td>
 
                                 </tr>
                             })
                         }
-
                     </tbody>
                 </table>
             </div>
+
+            <Modal
+              show={jobDetails}
+              handle={handleClose}
+              backdrop="static"
+              size="xl"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              keyboard={false}
+              dialogClassName="modal-75-screen">
+              <ModalHeader>
+                  <button className="btn btn-primary" onClick={handleClose}> Close </button>
+                <Modal.Title>
+                  Unit: {jobModal.unitNo} at Property Name
+                          
+                </Modal.Title>
+              </ModalHeader>
+              <Modal.Body>
+                <div className="row">
+                  <div className="col-5">
+                      <div>
+                        <h5> Maintenance Request Details </h5>
+                        <p> Reported On : {jobModal.jobDate} </p>
+                        <p> Job Item : {jobModal.jobItem} </p>
+                        <p> Job Description : {jobModal.jobItemDescription} </p>
+                        <p> Unit Number : {jobModal.unitNo}   </p>
+                        <p> Images: </p>
+                      
+                      </div>
+                      <form onSubmit={handleSubmit(onSubmit2)}>
+                      <div className="form-group">
+                        <label className="form-label">Assign To</label>
+                        <Controller
+                            name="assignedTo"
+                            control={control}
+                            render={({field}) =>
+                                    <select className="form-select" {...field} id="dropdown" name="assignedTo" value={selectedValue} onChange={handleChange}>
+                                    <option value="">-- Please Select a Maintenance Personnel/Technician --</option>
+                                    {techOptions.map(option => (
+                                      <option key={option.id} value={option.username}>
+                                        {option.username}
+                                      </option>
+                                    ))}
+                                  </select>
+                            }
+                          
+                        />
+                      
+                      </div>
+
+                      <div className="form-group invisible">
+                        <label>Query Status</label>
+                        <Controller
+                          name="username"
+                          control={control}
+                          render={({ field }) =>  
+                                <input {...field } type="number" disabled className="form-control" name="queryStatus"
+                                    value='2'
+                                //onChange={(e) => setModalData({ ...modalData, queryStatus: e.target.value })}
+                                />
+                          }
+                        />
+                      
+                      </div>
+
+                
+
+                      <div className="mt-3">
+                        <Button variant="secondary" onClick={handleClose} className="me-2">
+                          Cancel
+                        </Button>
+                        <Button type="submit" variant="primary">
+                          Assign
+                        </Button>
+                      </div>
+                      </form>
+
+                  </div>
+                  <div className="col-6">
+                    <Button variant="info" onClick={() => setPoSection(true)} className="me-2">
+                      Create Purchase Order
+                    </Button>
+                    {
+                      poSection && (
+                      
+                      <div className="container mt-4">
+                          <h1 className="mb-4">Purchase Orders</h1>
+
+
+                          {/* Create New PO */}
+                          <div className="card p-3 mb-4">
+                          <h2 className="h5 mb-3">Create New Purchase Order</h2>
+                          <div className="row g-2">
+                          <div className="col-md-4">
+                          <input className="form-control"
+                          placeholder="PO Number"
+                          value={newPO.poNumber}
+                          onChange={(e) => setNewPO({ ...newPO, poNumber: e.target.value })}
+                          />
+                          </div>
+                          <div className="col-md-4">
+                          <input
+                          className="form-control"
+                          placeholder="Supplier Name"
+                          value={newPO.supplierName}
+                          onChange={(e) => setNewPO({ ...newPO, supplierName: e.target.value })}
+                          />
+                          </div>
+                          <div className="col-md-4">
+                          <button className="btn btn-primary w-100" onClick={createPO}>Create PO</button>
+                          </div>
+                          </div>
+                          </div>
+                      </div> )}
+
+                      <div className="card p-3 mb-4">
+                        <table className="table table-striped">
+                          <thead>
+                            <tr>
+                            <th>PO Number</th>
+                            <th>Supplier</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              {purchaseOrders.map((po) => (
+                                  <tr key={po.purchaseOrderId}>
+                                  <td>{po.poNumber}</td>
+                                  <td>{po.supplierName}</td>
+                                  <td>{po.status}</td>
+                                  <td>{new Date(po.createdUtc).toLocaleDateString()}</td>
+                                  <td>
+                                  <button className="btn btn-sm btn-outline-primary" onClick={() => loadItems(po.purchaseOrderId)}>View Items</button>
+                                  </td>
+                                  </tr>
+                                  ))}
+                          </tbody>
+                        </table>
+
+                      </div>
+
+                      
+
+                      
+                   
+                  
+
+                  </div>
+                  </div>
+   
+
+              </Modal.Body>
+              <Modal.Footer>
+
+              </Modal.Footer>
+
+            </Modal>
         
        
 

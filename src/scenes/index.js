@@ -22,6 +22,9 @@ import LeaseAgreement from "./leaseAgreement";
 import AccessControl from "./accessControl";
 import SuccessPayment from "./payment/successPayment";
 import CancelledPayment from "./payment/cancelledPayment";
+import Company from "./company";
+import Property from "./property";
+import PurchaseOrder from "./purchaseOrder";
 
 export {
   Navbar,
@@ -48,4 +51,7 @@ export {
   AccessControl, 
   SuccessPayment,
   CancelledPayment,
+  Company,
+  Property,
+  PurchaseOrder,
 };

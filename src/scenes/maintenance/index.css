@@ -12,3 +12,15 @@
     margin-top: 2%;
     border-radius: 20px;
 }
+
+.modal-75-screen {
+  width: 75vw;
+  max-width: 75vw;
+  height: 75vh;
+  max-height: 75vh;
+  margin: auto;
+}
+
+.modal-75-screen .modal-content {
+  height: 100%;
+}
